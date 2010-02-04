@@ -1,6 +1,5 @@
 #from django.db import models
 from django.contrib.gis.db import models
-from django.contrib import admin
 
 # modelli
 class Animale(models.Model):
@@ -12,7 +11,6 @@ class Animale(models.Model):
         return '%s' % (self.nome)
 
     def image_url(self):
-        #return u'<img src="/tralerighe.media/%s" alt="%s" width="80"></img>' % (self.foto, self.nome)
         print '***%s****' % self.foto.url
         return u'<img src="%s" alt="%s" width="80"></img>' % (self.foto.url, self.nome)
     image_url.short_description = "Foto"
