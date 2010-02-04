@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script src="/static/openlayers/lib/OpenLayers.js"></script>
+    <style type="text/css"> #map { width:500px; height: 500px; } </style>
+    <script type="text/javascript">
+        var map, base_layer, kml;
+        var ms_url = "http://localhost/cgi-bin/mapserv?map=/home/geodjango/tutorial/django-1.2-alpha-1-env/foss4git/mapserver/italia.map&"
+        function init(){
+            map = new OpenLayers.Map('map');
+            base_layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+               "http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
+            var regioni = new OpenLayers.Layer.WMS("Regioni",
+               ms_url, {layers : 'regioni'} );
+            var province = new OpenLayers.Layer.WMS("Province",
+               ms_url, {layers : 'province'} );
+
+            kml = new OpenLayers.Layer.GML("KML", "/kml", 
+               { format: OpenLayers.Format.KML });
+            map.addLayers([base_layer, regioni, province, kml]);
+            
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            map.setCenter(new OpenLayers.LonLat(13,42),6); 
+            }
+    </script>
+  </head>
+  <body onload="init()">
+    <h3>Avvistamenti in Italia</h3>
+    <div id="map"></div>
+    <p>Sono stati inseriti {{num_avvistamenti}} avvistamenti.</p>
+  </body>
+</html>

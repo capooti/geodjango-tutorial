@@ -1,0 +1,66 @@
+MAP
+    NAME "WMS-italia"
+    STATUS ON
+    SIZE 400 300
+    EXTENT -90 -90 90 90
+    UNITS dd
+    IMAGECOLOR 200 200 200
+
+    WEB
+        METADATA
+          "wms_title"     "WMS Demo Server"
+          "wms_onlineresource" "http://localhost/cgi-bin/mapserv.exe?"
+          "wms_srs"       "EPSG:4326 EPSG:900913"  ##recommended
+        END
+    END
+
+    PROJECTION
+        "init=epsg:4326"   ##required
+    END
+
+	LAYER
+		NAME regioni
+		METADATA
+          "wms_title"    "regioni"  ##required
+        END
+	    CONNECTIONTYPE postgis
+	  	CONNECTION "host=localhost dbname=foss4git user=geodjango password=geodjango port=5432"
+        DATA "geometry from fauna_regione"
+        TYPE POLYGON
+        STATUS ON
+	 	PROJECTION
+          "init=epsg:4326"   ##recommended
+        END
+		CLASS
+			STYLE
+			  COLOR 100 100 100
+			  OUTLINECOLOR 0 0 0
+			  SYMBOL 0
+			END
+		END
+	END
+
+	LAYER
+		NAME province
+		METADATA
+          "wms_title"    "province"  ##required
+        END
+	    CONNECTIONTYPE postgis
+	  	CONNECTION "host=localhost dbname=foss4git user=geodjango password=geodjango port=5432"
+        DATA "geometry from fauna_provincia"
+        TYPE POLYGON
+        STATUS ON
+	 	PROJECTION
+          "init=epsg:4326"   ##recommended
+        END
+		CLASS
+			STYLE
+			  COLOR 200 100 100
+			  OUTLINECOLOR 0 0 0
+			  SYMBOL 0
+			END
+		END
+	END
+    
+END # Map File
+

@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <script src="http://openlayers.org/api/OpenLayers.js"></script>
+    <style type="text/css"> #map { width:400px; height: 400px; } </style>
+    <script type="text/javascript">
+        var map, base_layer, kml;
+        var ms_url = "http://localhost/cgi-bin/mapserv?map=/home/geodjango/tutorial/django-1.2-alpha-1-env/foss4git/mapserver/italia.map&"
+        function init(){
+            map = new OpenLayers.Map('map');
+            base_layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+               "http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
+            var regioni = new OpenLayers.Layer.WMS("Regioni",
+               ms_url, {layers : 'regioni'} );
+            var province = new OpenLayers.Layer.WMS("Province",
+               ms_url, {layers : 'province'} );
+
+            var format = new OpenLayers.Format.GeoJSON()
+            regione = format.read({{ regione.geometry.geojson|safe}})[0]; 
+            // We mark it 'safe' so that Django doesn't escape the quotes.
+            
+            regione.attributes = { 'nome': "{{regione.nome}}", 'type': 'regione'}; 
+            vectors = new OpenLayers.Layer.Vector("Data");
+            vectors.addFeatures(regione); 
+            for (var i = 0; i < points.length; i++) {
+                point = format.read(points[i])[0]; 
+                point.attributes = {'type':'point'}; 
+                vectors.addFeatures(point);
+            }
+            map.addLayers([base_layer, regioni, province, vectors]);
+            
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            map.zoomToExtent(regione.geometry.getBounds());
+}
+    </script>
+  </head>
+  <body onload="init()">
+    <h3>Avvistamenti nella regione: {{ regione.nome}}</h3>
+    <div id="map"></div>
+    In questa regione ci sono stati {{avvistamenti.count}} avvistamenti.<br>
+    <script> var points = []; </script>
+    <ul>
+    {% for avvistamento in avvistamenti %}
+        <li>{{ avvistamento.data }}, {{ avvistamento.animale.nome }}</li>
+        <script>points.push({{avvistamento.geometry.geojson|safe}});</script>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
