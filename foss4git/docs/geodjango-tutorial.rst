@@ -24,9 +24,9 @@ Aggiunta del campo geometrico nel modello
 -----------------------------------------
 
 Vogliamo aggiungere un campo geometrico puntuale nel modello Avvistamento.
-Per fare questa cosa bisogna far ereditare il modello a django.contrib.gis.db anzichè a django.db.models.
-Una voltà fatto ciò sarà possibile usare il campo geometrico.
-Ricordarsi di abilitare models.GeoManager al posto del manager di default (models.objects) per avere a disposizione tutte le funzionalità di geodjango sul modello.
+Per fare questa cosa bisogna far ereditare il modello a django.contrib.gis.db anziche' a django.db.models.
+Una volta' fatto cio' sara' possibile usare il campo geometrico.
+Ricordarsi di abilitare models.GeoManager al posto del manager di default (models.objects) per avere a disposizione tutte le funzionalita' di geodjango sul modello.
 
 Effettuare le seguenti modifiche su models.py::
 
@@ -56,7 +56,7 @@ Effettuare le seguenti modifiche su models.py::
         objects = gismodels.GeoManager()
     ...
 
-Prima di effettuare la sincronizzazione è necessario cancellare la tabella fauna_avvistamento::
+Prima di effettuare la sincronizzazione e' necessario cancellare la tabella fauna_avvistamento::
 
     (django-1.2-alpha-1-env)geodjango@geodjango-laptop:~/tutorial/django-1.2-alpha-1-env/foss4git$ psql -U geodjango tutorial
     psql (8.4.2)
@@ -74,7 +74,7 @@ A questo punto sincronizzare il database::
 Gestire dati geometrici nell'admin
 ----------------------------------
     
-Dobbiamo abilitare l'applicazione admin a gestire il data entry del dato geometrico. Useremo la funzionalità di GeoDjango che abilita l'editing dei dati geografici utilizzando OpenLayers su cartografia OpenStreetMap.
+Dobbiamo abilitare l'applicazione admin a gestire il data entry del dato geometrico. Useremo la funzionalita' di GeoDjango che abilita l'editing dei dati geografici utilizzando OpenLayers su cartografia OpenStreetMap.
 
 Per far questo modifichiamo il file admin.py::
 
@@ -178,7 +178,7 @@ Possiamo analizzare i due shapefiles con l'utility orginfo presente nel pacchett
 
 In entrambi i casi importeremo i campi relativi a nome, codice (regione e cod_reg per regioni, provincia e cod_prov per province) e geometria.
 
-Come prima cosa aggiungiamo i due geomodelli che gestiscono le entità Regione e Provincia::
+Come prima cosa aggiungiamo i due geomodelli che gestiscono le entita' Regione e Provincia::
 
     class Regione(gismodels.Model):
         """Modello spaziale per rappresentare le regioni"""
@@ -300,7 +300,7 @@ Creeremo due template che mostrano l'utilizzo di OpenLayers e GeoDjango::
 
 Se avanza tempo provare a creare un template che visualizzi i punti per provincia ed una vista che visualizzi i punti per tipologia di animale avvistato.
 
-Inoltre creeremo una view denominata all_kml che alimenta il template di geodjango gis/kml/placemarks.kml. Tale view fornisce un elenco completo in formato kml delle geometrie inserite nel sistema che servirà ad alimentare il layer vettoriale di OpenLayers per la visualizzazione degli avvistamenti sulla mappa.
+Inoltre creeremo una view denominata all_kml che alimenta il template di geodjango gis/kml/placemarks.kml. Tale view fornisce un elenco completo in formato kml delle geometrie inserite nel sistema che servira' ad alimentare il layer vettoriale di OpenLayers per la visualizzazione degli avvistamenti sulla mappa.
 
 Come prima cosa dichiariamo queste tre view sul file urls.py::
 
