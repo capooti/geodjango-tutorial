@@ -432,4 +432,3 @@ regione.html::
 
 A questo punto eventualmente rilanciare il server di django e verificare che le viste in questione presentino i risultati previsti.
 
-
