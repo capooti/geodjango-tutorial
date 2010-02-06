@@ -24,7 +24,7 @@ MAP
           "wms_title"    "regioni"  ##required
         END
 	    CONNECTIONTYPE postgis
-	  	CONNECTION "host=localhost dbname=foss4git user=geodjango password=geodjango port=5432"
+	  	CONNECTION "host=localhost dbname=tutorial user=geodjango password=geodjango port=5432"
         DATA "geometry from fauna_regione"
         TYPE POLYGON
         STATUS ON
@@ -46,7 +46,7 @@ MAP
           "wms_title"    "province"  ##required
         END
 	    CONNECTIONTYPE postgis
-	  	CONNECTION "host=localhost dbname=foss4git user=geodjango password=geodjango port=5432"
+	  	CONNECTION "host=localhost dbname=tutorial user=geodjango password=geodjango port=5432"
         DATA "geometry from fauna_provincia"
         TYPE POLYGON
         STATUS ON

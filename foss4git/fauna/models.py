@@ -1,5 +1,5 @@
-#from django.db import models
-from django.contrib.gis.db import models
+from django.db import models
+from django.contrib.gis.db import models as gismodels
 
 # modelli
 class Animale(models.Model):
@@ -20,7 +20,7 @@ class Animale(models.Model):
         ordering = ['nome']
         verbose_name_plural = "Animali"
 
-class Avvistamento(models.Model):
+class Avvistamento(gismodels.Model):
     """Modello spaziale per rappresentare gli avvistamenti"""
 
     LIVELLI_INTERESSE = (
@@ -30,12 +30,12 @@ class Avvistamento(models.Model):
         (4, '****'),
         (5, '*****'),
     )
-    data = models.DateTimeField()
-    note = models.TextField()
-    interesse = models.IntegerField(choices=LIVELLI_INTERESSE)
-    animale = models.ForeignKey(Animale)
-    geometry = models.PointField(srid=4326) 
-    objects = models.GeoManager()
+    data = gismodels.DateTimeField()
+    note = gismodels.TextField()
+    interesse = gismodels.IntegerField(choices=LIVELLI_INTERESSE)
+    animale = gismodels.ForeignKey(Animale)
+    geometry = gismodels.PointField(srid=4326) 
+    objects = gismodels.GeoManager()
 
     def __unicode__(self):
         return '%s' % (self.data)
@@ -44,22 +44,31 @@ class Avvistamento(models.Model):
         ordering = ['data']
         verbose_name_plural = "Avvistamenti"
 
-class Regione(models.Model):
+class Regione(gismodels.Model):
     """Modello spaziale per rappresentare le regioni"""
-    codice = models.IntegerField()
-    nome = models.CharField(max_length=50)
-    geometry = models.MultiPolygonField(srid=4326) 
-    objects = models.GeoManager()
+    codice = gismodels.IntegerField()
+    nome = gismodels.CharField(max_length=50)
+    geometry = gismodels.MultiPolygonField(srid=4326) 
+    objects = gismodels.GeoManager()
 
     def __unicode__(self):
         return '%s' % (self.nome)
 
-class Provincia(models.Model):
+class Provincia(gismodels.Model):
     """Modello spaziale per rappresentare le regioni"""
-    codice = models.IntegerField()
-    nome = models.CharField(max_length=50)
-    geometry = models.MultiPolygonField(srid=4326) 
-    objects = models.GeoManager()
+    codice = gismodels.IntegerField()
+    nome = gismodels.CharField(max_length=50)
+    geometry = gismodels.MultiPolygonField(srid=4326) 
+    objects = gismodels.GeoManager()
+
+    def __unicode__(self):
+        return '%s' % (self.nome)
+
+class SandboxLayer(gismodels.Model):
+    """Modello spaziale per effettuare test con l'API GeoDjango"""
+    nome = gismodels.CharField(max_length=50)
+    geometry = gismodels.GeometryField(srid=3395) # WGS84 mercatore
+    objects = gismodels.GeoManager()
 
     def __unicode__(self):
         return '%s' % (self.nome)

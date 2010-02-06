@@ -1,5 +1,5 @@
-from django.contrib.gis.admin import GeoModelAdmin
 from django.contrib import admin
+from django.contrib.gis.admin import GeoModelAdmin
 from models import *
 
 class AvvistamentoAdmin(GeoModelAdmin):
@@ -10,15 +10,15 @@ class AvvistamentoAdmin(GeoModelAdmin):
     list_filter = ['data', 'animale', 'interesse']
     date_hierarchy = 'data'
     fieldsets = (
-      ('Location Attributes', {'fields': (('data', 'animale', 'note', 'interesse'))}),
-      ('Editable Map View', {'fields': ('geometry',)}),
+      ('Caratteristiche avvistamento', {'fields': (('data', 'animale', 'note', 'interesse'))}),
+      ('Mappa', {'fields': ('geometry',)}),
     )
 
     # Openlayers settings
     scrollable = False
     map_width = 500
     map_height = 500
-    openlayers_url = '/static/openlayers/lib/OpenLayers.js'
+    #openlayers_url = '/static/openlayers/lib/OpenLayers.js'
     default_zoom = 6
     default_lon = 13
     default_lat = 42

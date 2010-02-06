@@ -1,4 +1,5 @@
-# Django settings for fauna project.
+# Django settings for foss4git project.
+
 import os
 
 ROOT_PROJECT_FOLDER = os.path.dirname(__file__)
@@ -16,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'foss4git',                      # Or path to database file if using sqlite3.
+        'NAME': 'tutorial',                      # Or path to database file if using sqlite3.
         'USER': 'geodjango',                      # Not used with sqlite3.
         'PASSWORD': 'geodjango',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -56,7 +57,7 @@ MEDIA_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'j6-r9+)5t0-_4ho7ina52kh1cqh(h^)pl^f8e2i8&e0n!crjsi'
+SECRET_KEY = 'ens_oegv^&lwmi06*2^&i%7$m7ukc9dgf59g*+gu8!c&naqo@i'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (

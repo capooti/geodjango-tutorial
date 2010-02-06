@@ -1,6 +1,4 @@
 from django.conf.urls.defaults import *
-from django.contrib import admin
-from settings import DEBUG
 from settings import STATIC_FILES
 from fauna.views import *
 
@@ -10,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
-    # (r'^fauna/', include('fauna.foo.urls')),
+    # (r'^foss4git/', include('foss4git.foo.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
@@ -18,6 +16,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+    # indirizzi non soggetti ad autenticazione
+    (r'^avvistamenti/', avvistamenti),
     (r'^kml/', all_kml),
     (r'^$', italia),
     (r'^regione/(?P<id>[0-9]*)/', regione),
@@ -26,4 +26,3 @@ urlpatterns = patterns('',
     # static files
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_FILES, 'show_indexes': True}),
 )
-

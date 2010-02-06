@@ -1,0 +1,11 @@
+<html>
+  <head></head>
+  <body>
+    <h3>Avvistamenti in Italia</h3>
+    <ul>
+    {% for avv in avvistamenti %}
+        <li>{{avv.animale.image_url|safe}} {{avv.data|date:"d M Y"}}, Interesse: {{avv.interesse}}</li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
