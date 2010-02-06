@@ -1,6 +1,6 @@
-=================
-Prima di Iniziare
-=================
+=======================
+Configurazioni iniziali
+=======================
 
 Virtual Machine
 ---------------
@@ -67,15 +67,15 @@ password: geodjango
 gfoss4-it GeoDjango Tutorial
 ----------------------------
 
-Per provare immediatamente il tutorial, si può procedere in questo modo.
+Per provare immediatamente il tutorial, si puo' procedere in questo modo.
 Sulla VM esiste un virtualenv con django 1.2 collocato in: /home/geodjango/tutorial/django-1.2-alpha-1-env.
-Attivare il virtualenv (basato su django 1.2-alpha1 e python 2.6) e lanciare l'applicazione, che è già configurata per girare su PostGis (il database è già stato creato).
+Attivare il virtualenv (basato su django 1.2-alpha1 e python 2.6) e lanciare l'applicazione, che e' gia' configurata per girare su PostGis (il database e' gia' stato creato).
 
 Utente e password dell'utente di amministrazione di django sono:
 user: admin
 pwd: admin
 
-C'è un WMS basato su mapserver in caso non ci sia connessione internet.
+C'e' un WMS basato su mapserver in caso non ci sia connessione internet.
 Il mapfile si trova qui e viene chiamato da openlayer:
 /home/geodjango/tutorial/django-1.2-alpha-1-env/foss4git/mapserver/italia.map
 
@@ -95,11 +95,11 @@ In particolare:
 * geographic_admin mostra l'utilizzo delle application Django Admin e Databrowse abilitate spazialmente con GeoDjango (utilizzando OpenLayers)
 (todo)
 
-Per provare immediatamente le basic-apps, si può procedere in questo modo.
+Per provare immediatamente le basic-apps, si puo' procedere in questo modo.
 Sulla VM si trovano nel virtualenv con django 1.0 collocato in: /home/geodjango/tutorial/django-1.0-env/geodjango-basic-apps.
-Attivare il virtualenv (basato su django 1.0 e python 2.5) e lanciare le applicazioni. Sono già configurate per girare su PostGis (i database sono già stati creati).
+Attivare il virtualenv (basato su django 1.0 e python 2.5) e lanciare le applicazioni. Sono gia' configurate per girare su PostGis (i database sono gia' stati creati).
 
-C'è un WMS basato su mapserver in caso non ci sia connessione internet.
+C'e' un WMS basato su mapserver in caso non ci sia connessione internet.
 Il mapfile si trova qui e viene chiamato da openlayer:
 /home/geodjango/software/mapserver-stuff/cape.map
 

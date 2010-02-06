@@ -13,6 +13,7 @@ Index of tutorial:
    introduzione
    django-tutorial
    geodjango-tutorial
+   geodjango-api
 
 Indices and tables
 ==================

@@ -1,11 +1,11 @@
-=============================
-Creazione del progetto Django
-=============================
+==================
+Utilizzo di Django
+==================
 
 Creazione ed attivazione del virtualenv
 ---------------------------------------
 
-Creare e attivare un virtualenv con django 1.2 alpha 1 e python 2.6 oppure utilizzare quello già disponibile sulla VM::
+Creare e attivare un virtualenv con django 1.2 alpha 1 e python 2.6 oppure utilizzare quello gia' disponibile sulla VM::
 
     geodjango@geodjango-laptop:~/tutorial/django-1.2-alpha-1-env$ source bin/activate
     
@@ -46,7 +46,7 @@ a questo punto editare il file di configurazione settings.py::
     MEDIA_URL = '/static/'
     ADMIN_MEDIA_PREFIX = '/media/'
     
-Creiamo il db. Utilizzeremo PostGis, anche se è./man possibile seguire il tutorial, con piccole differenze, con Spatialite (sqlite3)::
+Creiamo il db. Utilizzeremo PostGis, anche se e'./man possibile seguire il tutorial, con piccole differenze, con Spatialite (sqlite3)::
 
     (django-1.2-alpha-1-env)geodjango@geodjango-laptop:~/tutorial/django-1.2-alpha-1-env/foss4git$ psql -U geodjango template1
     psql (8.4.2)
@@ -80,7 +80,7 @@ Sincronizziamo il db::
     Installing index for auth.Permission model
     Installing index for auth.Message model
     
-Abbiamo già le tabelle base per un'applicazione django create nel database::
+Abbiamo gia' le tabelle base per un'applicazione django create nel database::
 
     (django-1.2-alpha-1-env)geodjango@geodjango-laptop:~/tutorial/django-1.2-alpha-1-env/foss4git$ psql -U geodjango tutorial
     psql (8.4.2)
@@ -219,7 +219,7 @@ Creiamo i due modelli nel file models.py::
             ordering = ['data']
             verbose_name_plural = "Avvistamenti"
     
-Prima di sincronizzare il db, verifichiamo che operazioni effettuerà la sincronizzazione::
+Prima di sincronizzare il db, verifichiamo che operazioni effettuera' la sincronizzazione::
 
     (django-1.2-alpha-1-env)geodjango@geodjango-laptop:~/tutorial/django-1.2-alpha-1-env/foss4git$ ./manage.py sql fauna
     BEGIN;
@@ -251,7 +251,7 @@ Sincronizziamo il database::
 Utilizzo dell'applicazione contrib.admin
 ----------------------------------------
 
-contrib.admin è stata già installata, a questo punto è sufficiente configuare la prima url nel file urls. Nello stesso file va anche impostata la url dei file statici::
+contrib.admin e' stata gia' installata, a questo punto e' sufficiente configuare la prima url nel file urls. Nello stesso file va anche impostata la url dei file statici::
 
     ...
     from settings import STATIC_FILES
@@ -265,7 +265,7 @@ contrib.admin è stata già installata, a questo punto è sufficiente configuare
         (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_FILES, 'show_indexes': True}),
     )
     
-Lanciando il server e andando sull'admin, però i due modelli non sono presenti. Creiamo un file fauna/admin.py così costituito::
+Lanciando il server e andando sull'admin, pero' i due modelli non sono presenti. Creiamo un file fauna/admin.py cosi' costituito::
 
     from django.contrib import admin
     from models import *
@@ -290,7 +290,7 @@ Lanciando il server e andando sull'admin, però i due modelli non sono presenti.
     admin.site.register(Animale, AnimaleAdmin)
     admin.site.register(Avvistamento, AvvistamentoAdmin)
 
-A questo punto è possibile creare delle istanze dei modelli con l'admin. Inserire qualche record, ovviamente il database si aggiorna di conseguenza::
+A questo punto e' possibile creare delle istanze dei modelli con l'admin. Inserire qualche record, ovviamente il database si aggiorna di conseguenza::
 
     geodjango@geodjango-laptop:~/tutorial/django-1.2-alpha-1-env/foss4git$ psql -U geodjango tutorial
     psql (8.4.2)
@@ -348,5 +348,50 @@ Usiamo la shell per dimostrare i metodi CRUD::
     >>> avv_interessanti = Avvistamento.objects.filter(interesse__gte=4)
     >>> avv_interessanti.count()
     2
+
+Creazione di una vista e di un template
+---------------------------------------
+
+Proviamo a creare una vista ed un template che presentino, nel lato pubblico dell'applicativo, un elenco degli avvistamenti inseriti nel template.
+
+Come prima cosa inseriamo la nuova url nel file urls.py, ricordandosi di importare fauna.views (dove inseriremo la nuova vista)::
+
+    from django.conf.urls.defaults import *
+    from settings import STATIC_FILES
+    from fauna.views import *
+    ...
+        # Uncomment the next line to enable the admin:
+        (r'^admin/', include(admin.site.urls)),
+        # indirizzi non soggetti ad autenticazione
+        (r'^avvistamenti/', avvistamenti),
+    ...
+
+Poi creaimo la vista nel file views.py::
+
+    from django.shortcuts import render_to_response, get_object_or_404
+    from django.contrib.gis.shortcuts import render_to_kml
+    from fauna.models import *
+
+    # vista per visualizzare tutti i punti di avvistamento
+    def avvistamenti(request):
+        avvistamenti  = Avvistamento.objects.all()
+        return render_to_response("avvistamenti.html", {'avvistamenti' : avvistamenti})
+
+Infine creiamo la directory fauna/templates ed al suo interno inseriamo il template avvistamenti.html::
+
+    <html>
+      <head></head>
+      <body>
+        <h3>Avvistamenti in Italia</h3>
+        <ul>
+        {% for avv in avvistamenti %}
+            <li>{{avv.animale.image_url|safe}} {{avv.data|date:"d M Y"}}, Interesse: {{avv.interesse}}</li>
+        {% endfor %}
+        </ul>
+      </body>
+    </html>
+
+Si può a questo punto raggiungere la pagina http://localhost:8000/avvistamenti che dovrebbe visualizzare l'elenco degli avvistamenti.
+
 
 
